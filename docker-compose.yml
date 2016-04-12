@@ -4,15 +4,13 @@ elasticsearch:
   ports:
     - "9200:9200"
     - "9300:9300"
-logstash:
-  image: logstash:latest
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
-  volumes:
-    - ./logstash/config:/etc/logstash/conf.d
+fluentd:
+  build: fluentd/
+  # TODO: mount volumn
   ports:
-    - "5000:5000"
+     - "24224:24224"
   links:
-    - elasticsearch
+     - elasticsearch
 kibana:
   build: kibana/
   volumes:
